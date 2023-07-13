@@ -7,13 +7,13 @@ const Icon = () => {
     <div className="flex space-x-4 text-black">
       <Link
         to="/"
-        className="bg-zinc-200 p-2 rounded-full flex items-center justify-center transition transform hover:scale-90"
+        className="bg-zinc-200 p-2 rounded-full flex items-center justify-center transition transform hover:scale-90 h-10 w-10"
       >
         <AiOutlineHeart size={25} />
       </Link>
       <Link
         to="/"
-        className="bg-zinc-200 p-2 rounded-full flex items-center justify-center transition transform hover:scale-90"
+        className="bg-zinc-200 p-2 rounded-full flex items-center justify-center transition transform hover:scale-90 h-10 w-10"
       >
         <AiOutlineShoppingCart size={25} />
       </Link>
