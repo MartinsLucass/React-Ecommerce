@@ -57,7 +57,7 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
     <form className="flex items-center justify-center sm:rounded-lg rounded-full w-full">
       {showSearch && (
         <button onClick={() => setShowSearch(false)} className="mr-6">
-          <AiOutlineArrowLeft size={25} className="text-black" />
+          <AiOutlineArrowLeft size={20} className="text-black" />
         </button>
       )}
       <div
