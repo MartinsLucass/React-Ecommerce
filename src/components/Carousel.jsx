@@ -18,7 +18,7 @@ const Carousel = () => {
     },
     {
       src: image1,
-      alt: "Imagem 2",
+      alt: "Imagem 3",
     },
   ];
 
@@ -27,20 +27,23 @@ const Carousel = () => {
     speed: 500,
     autoplay: true,
     autoplaySpeed: 2500,
-    customPaging: () => <FontAwesomeIcon icon={faCircle} />,
   };
 
   return (
     <Slider {...settings}>
       {images.map((image) => (
-        <div key={image.src} className="shadow-xl bg-slate-200 p-4">
+        <div
+          key={image.src}
+          className="shadow-xl bg-slate-200 p-4 flex justify-center items-start z-0"
+        >
           <div className="flex flex-row items-center justify-between">
             <div className="w-1/2 pr-8">
               <p className="text-2xl font-extrabold">
                 50% OFF For Your First Shopping
               </p>
               <p className="text-gray-600 mt-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque alias recusandae similique tenetur unde veritatis.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+                alias recusandae similique tenetur unde veritatis.
               </p>
             </div>
             <div className="w-2/5">

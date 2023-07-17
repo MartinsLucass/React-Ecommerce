@@ -1,56 +1,75 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
-import classNames from "classnames";
+import { AiOutlineClose } from "react-icons/ai";
+import { FaBars } from "react-icons/fa";
 import { routes } from "../../pages/RouterConfig";
-const Menu = () => {
+
+const MobileMenu = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef(null);
+  const [showCategory, setShowCategory] = useState(false);
 
-  const handleClickOutside = useCallback((event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setShowMenu(false);
-    }
-  }, []);
+  const closeMenu = () => {
+    setShowMenu(false);
+    setShowCategory(false);
+  };
+  const mainLinks = routes[0].children.map((route, index) => (
+    <div
+      key={index}
+      className="p-0.5 mt-3 flex items-center px-4 cursor-pointer "
+    >
+      <Link
+        to={route.path}
+        className="text-black font-bold cursor-pointer text-2xl hover:text-zinc-900"
+        onClick={closeMenu}
+      >
+        {route.title}
+      </Link>
+    </div>
+  ));
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleClickOutside]);
+ 
 
-  const toggleMenu = useCallback(() => {
-    setShowMenu((prevState) => !prevState);
-  }, []);
-
-  const menuClasses = classNames("flex", {
-    hidden: !showMenu,
-    "flex-col space-y-4 absolute top-14 left-0 bg-white p-4 rounded-lg shadow-lg":
-      showMenu,
-  });
-
-  // Mapeia as rotas e gera os links correspondentes
-  const menuLinks = routes[0].children.map((route, index) => (
-    <li key={index} className="text-purple-950 font-bold hover:text-purple-700 cursor-pointer">
-      <Link to={route.path}>{route.title}</Link>
-    </li>
+  const categories = ["Fashion", "Electronics", "Cars", "Gifts", "Books", "Pets"].map((category, index) => (
+    <div
+      key={index}
+      className="p-0.5 mt-3 flex items-center px-4 cursor-pointer hover:text-zinc-700 text-xl"
+    >
+      <Link to={category.path} className="text-black font-bold cursor-pointer hover:text-zinc-900" onClick={closeMenu}>
+        {category}
+      </Link>
+    </div>
   ));
 
   return (
-    <>
-      <div className="flex flex-row sm:space-x-20 space-x-8 md:space-x-11 justify-center lg:items-end items-center">
-      <button className="lg:hidden flex" onClick={toggleMenu}>
-        {showMenu ? <FaTimes size={25} /> : <FaBars size={25} />}
-      </button>
-        <h1 className="text-3xl font-bold text-purple-950">LOJINHA</h1>
-        <ul className="hidden lg:flex flex-row space-x-4 transition-transform">{menuLinks}</ul>
+    <div>
+      <div className={`fixed top-0 bottom-0 left-0 p-2 md:w-[300px] sm:w-[250px] w-full overflow-auto text-center bg-zinc-100 z-50 transition-all duration-500 transform ${showMenu ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="text-black text-xl">
+          <div className="p-3 mt-1 flex items-center justify-end mb-4 border-b-2 border-zinc-900">
+            <button onClick={closeMenu}>
+              <AiOutlineClose size={20} />
+            </button>
+          </div>
+          <div className="p-0.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer">
+            <button onClick={() => setShowCategory(!showCategory)} className="text-black text-2xl font-bold cursor-pointer hover:text-zinc-900">
+              Category
+            </button>
+          </div>
+          {showCategory && <div className="pl-6">{categories}</div>}
+          {mainLinks}
+        </div>
       </div>
-      <ul ref={menuRef} className={menuClasses}>
-        {menuLinks}
-      </ul>
-    </>
+      {!showMenu && (
+        <button
+          className="md:hidden flex justify-center items-start"
+          onClick={() => {
+            setShowMenu(true);
+          }}
+        >
+          <FaBars size={25} />
+        </button>
+      )}
+    </div>
   );
 };
 
-export default Menu;
+export default MobileMenu;

@@ -1,24 +1,29 @@
 import React from "react";
+import { FaMobileAlt, FaTabletAlt, FaLaptop, FaKeyboard } from "react-icons/fa";
+import { BsWatch} from "react-icons/bs"
 
 const Category = () => {
-  const categories = ["Fashion", "Eletronic", "Cars", "Gifts", "Books", "Pets"];
+  const categories = [
+    { name: "Cell Phone", icon: <FaMobileAlt /> },
+    { name: "Tablet", icon: <FaTabletAlt /> },
+    { name: "Smart Watch", icon: <BsWatch /> },
+    { name: "Computer", icon: <FaLaptop /> },
+    { name: "Peripherals", icon: <FaKeyboard /> }
+  ];
+
   return (
-    <div className=" w-72 ">
-      <div className="flex sm:hidden">
-          <button>
-            category
-          </button>
-      </div>
-      <div className="hidden sm:flex">
-      <ul className="flex flex-col bg-white rounded-lg shadow-md ">
+    <div className="hidden sm:flex justify-center items-start h-full">
+      <ul className="flex flex-col bg-white rounded-lg shadow-md border border-zinc-300 p-2 w-full">
         {categories.map((category) => (
-          <li key={category} className="py-2 px-4 hover:bg-gray-100 rounded-lg cursor-pointer">
-            {category}
+          <li
+            key={category.name}
+            className="flex items-center justify-start py-2 px-4 h-14 hover:bg-gray-100 rounded-lg cursor-pointer"
+          >
+            <span className="mr-2 text-zinc-900">{category.icon}</span>
+            <span className="text-lg font-semibold text-zinc-900">{category.name}</span>
           </li>
         ))}
       </ul>
-      </div>
-      
     </div>
   );
 };
