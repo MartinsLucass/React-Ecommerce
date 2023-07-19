@@ -30,11 +30,12 @@ const Carousel = () => {
   };
 
   return (
-    <Slider {...settings}>
+    
+    <Slider {...settings} className="border border-zinc-300 shadow-xl">
       {images.map((image) => (
         <div
           key={image.src}
-          className="shadow-xl bg-slate-200 p-4 flex justify-center items-start z-0"
+          className=" bg-white p-4 flex justify-center items-start z-0 w-ful"
         >
           <div className="flex flex-row items-center justify-between">
             <div className="w-1/2 pr-8">

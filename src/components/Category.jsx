@@ -7,12 +7,12 @@ const Category = () => {
     { name: "Cell Phone", icon: <FaMobileAlt /> },
     { name: "Tablet", icon: <FaTabletAlt /> },
     { name: "Smart Watch", icon: <BsWatch /> },
-    { name: "Computer", icon: <FaLaptop /> },
-    { name: "Peripherals", icon: <FaKeyboard /> }
+    { name: "Video Games", icon: <FaKeyboard /> },
+    { name: "Fone", icon: <FaKeyboard /> },
   ];
 
   return (
-    <div className="hidden sm:flex justify-center items-start h-full">
+    <div className="hidden sm:flex h-full">
       <ul className="flex flex-col bg-white rounded-lg shadow-md border border-zinc-300 p-2 w-full">
         {categories.map((category) => (
           <li
