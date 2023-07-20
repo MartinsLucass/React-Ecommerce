@@ -31,7 +31,7 @@ const Carousel = () => {
 
   return (
     
-    <Slider {...settings} className="border border-zinc-300 shadow-xl">
+    <Slider {...settings} className="border border-zinc-300 shadow-xl ">
       {images.map((image) => (
         <div
           key={image.src}
