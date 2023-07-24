@@ -1,24 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import SearchProducts from "../common/SearchProducts";
 import CardProduct from "./CardProduct";
 
-const Deals = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const products = await SearchProducts();
-        setProducts(products);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
-  }, []);
+const CarouselProducts = ({products, title}) => {
 
   const settings = {
     dots: true,
@@ -53,15 +39,11 @@ const Deals = () => {
     ]
   };
 
-  const promotionProducts = products.filter(
-    (product) => product.original_price > product.price
-  ).slice(0, 20); // Limita para mostrar até 20 itens
-
   return (
     <div className="w-full">
-      <h3 className="text-2xl font-semibold mb-4 pr-4">Daily Deal</h3> 
+      <h3 className="text-2xl font-semibold mb-4 pr-4">{title}</h3> 
       <Slider {...settings} className="w-full bg-zinc-100 shadow">
-        {promotionProducts.map((product) => (
+        {products.map((product) => (
           <div key={product.id}>
             <CardProduct product={product} />
           </div>
@@ -71,4 +53,4 @@ const Deals = () => {
   );
 };
 
-export default Deals;
+export default CarouselProducts;

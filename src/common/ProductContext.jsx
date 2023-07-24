@@ -14,14 +14,16 @@ const shuffleArray = (array) => {
 const ProductContextProvider = ({ children }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [promotionProducts, setPromotionProducts] = useState([]);
+  const [newProducts, setNewProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("")
 
-  const searchProducts = async ({ category }) => {
+  const searchProducts = async ({ category, searchTerm}) => {
     let products = [];
 
     try {
       const searchPromises = category.map(async (category) => {
         const response = await axios.get(
-          `https://api.mercadolibre.com/sites/MLB/search?category=${category}`
+          `https://api.mercadolibre.com/sites/MLB/search?q=${searchTerm}&category=${category}`
         );
         return response.data.results;
       });
@@ -40,10 +42,18 @@ const ProductContextProvider = ({ children }) => {
       (product) => product.original_price > product.price
     ).slice(0, 20);
     setPromotionProducts(promotionProducts);
+
+    const newProducts = products.filter(
+      (product) => product.condition === "new"
+    ).slice(0, 20);
+    setNewProducts(newProducts);
+
+  console.log(products)
+  
   };
 
   return (
-    <ProductContext.Provider value={{ allProducts, searchProducts, promotionProducts }}>
+    <ProductContext.Provider value={{ allProducts, searchProducts, promotionProducts, newProducts, searchTerm, setSearchTerm}}>
       {children}
     </ProductContext.Provider>
   );
@@ -58,3 +68,4 @@ const useProductContext = () => {
 };
 
 export { ProductContextProvider, useProductContext };
+
