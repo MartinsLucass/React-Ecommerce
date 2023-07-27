@@ -9,7 +9,7 @@ const CardProduct = ({ product }) => {
     price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   return (
-    <div className="shadow-lg border-2 bg-white border-zinc-300 rounded-md flex flex-col items-center justify-center w-11/12 h-64 mx-3 ">
+    <div className="shadow-lg border-2 bg-white border-zinc-300 rounded-md flex flex-col items-center justify-center w-11/12 h-64 mx-3 mb-8 ">
       <img
         src={product.thumbnail}
         alt={product.title}

@@ -5,13 +5,13 @@ import CarouselProducts from "../components/CarouselProducts";
 import { useProductContext } from "../common/ProductContext";
 
 const Home = () => {
-  const { searchProducts, promotionProducts, newProducts } = useProductContext();
+  const { searchProducts, promotionProducts, newProducts, setSearchTerm} = useProductContext();
   const categories = ["MLB1055", "MLB11172", "MLB99889", "MLB135384"];
-
+ 
   useEffect(() => {
+    setSearchTerm("")
     searchProducts({ category: categories, searchTerm: "" });
   }, []);
-
   return (
     <main className="flex flex-col items-center justify-start mt-8 sm:mt-16 space-y-28">
       <div className="sm:container flex flex-col sm:flex-row justify-center items-start w-full sm:space-x-6 gb-gray-600 sm:mb-48">

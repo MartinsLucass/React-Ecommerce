@@ -50,6 +50,7 @@ const ProductContextProvider = ({ children }) => {
 
   console.log(products)
   
+  
   };
 
   return (

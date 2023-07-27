@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineArrowLeft } from "react-icons/ai";
+import { useProductContext } from "../ProductContext";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 const SearchBar = ({ showSearch, setShowSearch }) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { setSearchTerm, allProducts } = useProductContext();
+  const [windowWidth, setWindowWidth] = useState(0); // Definir um valor inicial para o tamanho da janela
+  const [inputTerm, setInputTerm] = useState("");
 
-  const handleButtonClick = (event) => {
-    event.preventDefault();
+  const handleButtonClick = () => {
     if (windowWidth < 640 && !showSearch) {
       setShowSearch(!showSearch);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setInputTerm(e.target.value);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (inputTerm.trim() !== "") {
+      setSearchTerm(inputTerm);
     }
   };
 
@@ -27,34 +41,26 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
   );
 
   useEffect(() => {
-    const handleMouseDown = (event) => {
-      if (!event.target.closest("form")) {
-        setShowSearch(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleMouseDown);
-
-    return () => {
-      document.removeEventListener("mousedown", handleMouseDown);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
+    // Função para atualizar o tamanho da janela apenas no lado do cliente
+    const updateWindowWidth = () => {
       setWindowWidth(window.innerWidth);
-      setShowSearch(false);
     };
 
-    window.addEventListener("resize", handleResize);
+    // Adicionar o ouvinte do evento resize somente no lado do cliente
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", updateWindowWidth);
+    }
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", updateWindowWidth);
+      }
     };
   }, []);
 
   return (
-    <form className="flex items-center justify-center sm:rounded-lg rounded-full w-full">
+    <form onSubmit={handleFormSubmit} className="flex items-center justify-center sm:rounded-lg rounded-full w-full">
       {showSearch && (
         <button onClick={() => setShowSearch(false)} className="mr-6">
           <AiOutlineArrowLeft size={20} className="text-black" />
@@ -72,11 +78,17 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
         <input
           className={inputClasses}
           type="text"
-          placeholder="Pesquisar..."
+          onChange={handleInputChange}
         />
-        <button className={buttonClasses} onClick={handleButtonClick}>
-          <AiOutlineSearch size={20} className="text-black" />
-        </button>
+        {inputTerm !== "" ? (
+          <Link to={"/Search"} className={buttonClasses} onClick={handleButtonClick}>
+            <AiOutlineSearch size={20} className="text-black" />
+          </Link>
+        ) : (
+          <button className={buttonClasses} onClick={handleButtonClick}>
+            <AiOutlineSearch size={20} className="text-black" />
+          </button>
+        )}
       </div>
     </form>
   );
