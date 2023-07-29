@@ -3,10 +3,11 @@ import Carousel from "../components/Carousel";
 import Category from "../components/Category";
 import CarouselProducts from "../components/CarouselProducts";
 import { useProductContext } from "../common/ProductContext";
+import Brand from "../components/Brand";
 
 const Home = () => {
   const { searchProducts, promotionProducts, newProducts, setSearchTerm} = useProductContext();
-  const categories = ["MLB1055", "MLB11172", "MLB99889", "MLB135384", "MLB196208"];
+  const categories = ["MLB1055"/*cellphone*/, "MLB99889"/*tablet*/,"MLB1002"/*television*/, "MLB135384"/*smartwatch*/,"MLB196208"/*headfone*/];
  
   useEffect(() => {
     setSearchTerm("")
@@ -22,9 +23,11 @@ const Home = () => {
       <div className="h-full w-11/12 flex justify-center">
         <Category />
       </div>
-      
       <div className="w-11/12 flex justify-center">
         <CarouselProducts products={promotionProducts} title={"Daily Deal"} />
+      </div>
+      <div className="h-full w-11/12 flex justify-center">
+        <Brand />
       </div>
       <div className=" w-11/12 flex justify-center">
         <CarouselProducts products={newProducts} title={"New Products"}/>

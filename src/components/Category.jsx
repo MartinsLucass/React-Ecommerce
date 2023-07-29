@@ -7,7 +7,7 @@ import img1 from "../common/assets/images/headset.jpg";
 import img2 from "../common/assets/images/tab.jpg";
 import img3 from "../common/assets/images/watch.jpg";
 import img4 from "../common/assets/images/cell.jpg";
-import img5 from "../common/assets/images/game.jpg";
+import img5 from "../common/assets/images/tv.jpg";
 
 const Category = () => {
   const category = [
@@ -32,7 +32,7 @@ const Category = () => {
       image: img1,
     },
     {
-      name: "Video Game",
+      name: "Television",
       path: "/Category/VideoGames",
       image: img5,
     },
@@ -73,18 +73,17 @@ const Category = () => {
 
   return (
     <div className="flex h-full w-full">
-      <Slider {...settings} className="w-full bg-zinc-100 shadow">
+      <Slider {...settings} className="w-full bg-transparent">
         {category.map((categoryItem) => (
-          <div key={categoryItem.name} className="px-2">
+          <div key={categoryItem.name} className="px-2 shadow-lg">
             <Link
-              className="flex flex-col items-center justify-center h-64 w-full rounded-lg cursor-pointer shadow-md transition-all duration-200 bg-cover bg-center hover:opacity-100"
+              className="flex flex-col items-center justify-center h-64 w-full rounded-lg cursor-pointer shadow-lg transition-all duration-200 bg-cover bg-center hover:opacity-100"
               style={{
                 backgroundImage: `url(${categoryItem.image})`,
               }}
               to={categoryItem.path}
             >
-
-              <span className="text-white opacity-80 text-3xl font-bold shadow-sm text-">
+              <span className="text-white opacity-80 text-3xl font-bold shadow-md">
                 {categoryItem.name}
               </span>
             </Link>

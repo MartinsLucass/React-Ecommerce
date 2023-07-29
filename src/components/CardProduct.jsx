@@ -1,8 +1,7 @@
 import React from "react";
 
 const CardProduct = ({ product }) => {
-  const hasSale =
-    product.original_price > product.price;
+  const hasSale = product.original_price > product.price;
   const salePrice = hasSale ? product.price : null;
 
   const formatPrice = (price) =>
@@ -16,11 +15,11 @@ const CardProduct = ({ product }) => {
         className=" rounded-md mb-4"
       />
       <h3
-  className="text-lg font-semibold text-center mb-2 truncate w-full px-2"
-  title={product.title}
->
-  {product.title}
-</h3>
+        className="text-lg font-semibold text-center mb-2 truncate w-full px-2"
+        title={product.title}
+      >
+        {product.title}
+      </h3>
       <div className="flex flex-row items-end justify-between w-full px-4">
         {hasSale ? (
           <div className="flex flex-col items-start justify-startpx-4">

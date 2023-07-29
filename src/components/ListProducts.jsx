@@ -7,7 +7,8 @@ const ListProducts = ({ categories }) => {
 
   useEffect(() => {
     searchProducts({ category: categories, searchTerm: searchTerm });
-  }, [searchTerm, categories]); // Adicionando searchTerm e categories como dependências do useEffect
+    console.log(searchTerm);
+  }, [searchTerm, categories]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 mt-8">
