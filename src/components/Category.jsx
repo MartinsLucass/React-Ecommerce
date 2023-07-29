@@ -1,30 +1,96 @@
 import React from "react";
-import { FaMobileAlt, FaTabletAlt, FaLaptop, FaKeyboard } from "react-icons/fa";
-import { BsWatch} from "react-icons/bs"
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import img1 from "../common/assets/images/headset.jpg";
+import img2 from "../common/assets/images/tab.jpg";
+import img3 from "../common/assets/images/watch.jpg";
+import img4 from "../common/assets/images/cell.jpg";
+import img5 from "../common/assets/images/game.jpg";
 
 const Category = () => {
-  const categories = [
-    { name: "Cell Phone", icon: <FaMobileAlt />, path:"/Category/CellPhone"  },
-    { name: "Tablet", icon: <FaTabletAlt />, path:"/Category/Tablet" },
-    { name: "Smart Watch", icon: <BsWatch />, path:"/Category/SmartWatch"  },
-    { name: "Video Games", icon: <FaKeyboard />,  path:"/Category/VideoGames"  },
+  const category = [
+    {
+      name: "Cell Phone",
+      path: "/Category/CellPhone",
+      image: img4,
+    },
+    {
+      name: "Tablet",
+      path: "/Category/Tablet",
+      image: img2,
+    },
+    {
+      name: "Smart Watch",
+      path: "/Category/SmartWatch",
+      image: img3,
+    },
+    {
+      name: "HeadFone",
+      path: "/Category/HeadFone",
+      image: img1,
+    },
+    {
+      name: "Video Game",
+      path: "/Category/VideoGames",
+      image: img5,
+    },
   ];
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    speed: 300,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="hidden sm:flex h-full">
-      <div className="flex flex-col bg-white rounded-lg shadow-md border border-zinc-300 p-2 w-full">
-        {categories.map((category) => (
-          <Link
-            key={category.name}
-            className="flex items-center justify-start py-2 px-4 h-14 hover:bg-gray-100 rounded-lg cursor-pointer"
-            to={category.path}
-          >
-            <span className="mr-2 text-zinc-900">{category.icon}</span>
-            <span className="text-lg font-semibold text-zinc-900">{category.name}</span>
-          </Link>
+    <div className="flex h-full w-full">
+      <Slider {...settings} className="w-full bg-zinc-100 shadow">
+        {category.map((categoryItem) => (
+          <div key={categoryItem.name} className="px-2">
+            <Link
+              className="flex flex-col items-center justify-center h-64 w-full rounded-lg cursor-pointer shadow-md transition-all duration-200 bg-cover bg-center hover:opacity-100"
+              style={{
+                backgroundImage: `url(${categoryItem.image})`,
+              }}
+              to={categoryItem.path}
+            >
+
+              <span className="text-white opacity-80 text-3xl font-bold shadow-sm text-">
+                {categoryItem.name}
+              </span>
+            </Link>
+          </div>
         ))}
-      </div>
+      </Slider>
     </div>
   );
 };

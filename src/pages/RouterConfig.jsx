@@ -24,7 +24,8 @@ const routes = [
       { path: "/Category/Tablet", element: <ListProducts  categories={["MLB99889"]} />, title: "Tablet" },
       { path: "/Category/VideoGames", element: <ListProducts  categories={["MLB11172"]} />, title: "Video Games" },
       { path: "/Category/SmartWatch", element: <ListProducts  categories={["MLB135384"]} />, title: "Smart Watch" },
-      { path: "/Search", element: <ListProducts categories={["MLB1055", "MLB99889","MLB11172", "MLB135384"]} />, title: "Search" },
+      { path: "/Search", element: <ListProducts categories={["MLB1055", "MLB99889","MLB11172", "MLB135384","MLB196208"]} />, title: "Search" },
+      { path: "/Category/HeadFone", element: <ListProducts  categories={["MLB196208"]} />, title: "Head Fone" },
     ]
   },
 ];

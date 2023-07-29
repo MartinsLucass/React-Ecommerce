@@ -23,6 +23,8 @@ const Carousel = () => {
   ];
 
   const settings = {
+    dots: false,
+    arrows: false,
     infinite: true,
     speed: 500,
     autoplay: true,
@@ -31,23 +33,26 @@ const Carousel = () => {
 
   return (
     
-    <Slider {...settings} className="border border-zinc-300 shadow-xl ">
+    <Slider {...settings} className=" shadow-xl shadow-zinc-300 ">
       {images.map((image) => (
         <div
           key={image.src}
-          className=" bg-white p-4 flex justify-center items-start z-0 w-ful"
+          className="bg-gradient-to-b from-zinc-100 to-zinc-300 p-4 flex  justify-center items-start z-0 "
         >
-          <div className="flex flex-row items-center justify-between">
-            <div className="w-1/2 pr-8">
+          <div className="flex flex-col-reverse sm:flex-row sm:items-center items-center justify-between">
+            <div className="sm:w-1/2 p-8 space-y-4">
               <p className="text-2xl font-extrabold">
                 50% OFF For Your First Shopping
               </p>
-              <p className="text-gray-600 mt-2">
+              <p className="text-gray-600">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
                 alias recusandae similique tenetur unde veritatis.
               </p>
+              <button className="bg-zinc-900 text-white p-4 rounded-xl">
+                Collection
+              </button>
             </div>
-            <div className="w-2/5">
+            <div className="sm:w-2/5 w-2/3 sm:p-8 p-4">
               <img
                 src={image.src}
                 alt={image.alt}

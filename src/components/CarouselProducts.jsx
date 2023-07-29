@@ -7,7 +7,7 @@ import CardProduct from "./CardProduct";
 const CarouselProducts = ({products, title}) => {
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 2500,
@@ -40,9 +40,9 @@ const CarouselProducts = ({products, title}) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <h3 className="text-2xl font-semibold mb-4 pr-4">{title}</h3> 
-      <Slider {...settings} className="w-full bg-zinc-100 shadow">
+      <Slider {...settings} className="w-full ">
         {products.map((product) => (
           <div key={product.id}>
             <CardProduct product={product} />
