@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
 import SearchBar from "./SearchBar";
-import Icon from "./icon";
 import Links from "./Links";
+import Cart from "../../components/Cart";
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -29,7 +29,7 @@ const Header = () => {
                   setShowSearch={setShowSearch}
                   showSearch={showSearch}
                 />
-                <Icon />
+                <Cart />
               </div>
             </div>
           </>

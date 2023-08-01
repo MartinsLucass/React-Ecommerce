@@ -16,6 +16,7 @@ const ProductContextProvider = ({ children }) => {
   const [promotionProducts, setPromotionProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("")
+  const [cart, setCart] = useState([])
 
   const searchProducts = async ({ category, searchTerm}) => {
     let products = [];
@@ -53,7 +54,7 @@ const ProductContextProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider value={{ allProducts, searchProducts, promotionProducts, newProducts, searchTerm, setSearchTerm}}>
+    <ProductContext.Provider value={{ allProducts, searchProducts, promotionProducts, newProducts, searchTerm, cart, setCart, setSearchTerm}}>
       {children}
     </ProductContext.Provider>
   );

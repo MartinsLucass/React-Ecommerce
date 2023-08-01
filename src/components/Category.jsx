@@ -33,7 +33,7 @@ const Category = () => {
     },
     {
       name: "Television",
-      path: "/Category/VideoGames",
+      path: "/Category/Television",
       image: img5,
     },
   ];
