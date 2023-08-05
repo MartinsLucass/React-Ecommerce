@@ -21,6 +21,9 @@ const routes = [
     children: [
       { path: "/", element: <Home />, title: "Home" },
       {
+        path: "/Product", title: "Product",
+      },
+      {
         path: "/Category/CellPhone",
         element: <ListProducts categories={["MLB1055"]} />,
         title: "Cell Phone",

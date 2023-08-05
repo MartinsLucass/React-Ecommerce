@@ -77,13 +77,13 @@ const Category = () => {
         {category.map((categoryItem) => (
           <div key={categoryItem.name} className="px-2 shadow-lg">
             <Link
-              className="flex flex-col items-center justify-center h-64 w-full rounded-lg cursor-pointer shadow-lg transition-all duration-200 bg-cover bg-center hover:opacity-100"
+              className="flex flex-col items-center justify-center h-64 w-full rounded-lg cursor-pointer shadow-lg bg-cover bg-center hover:opacity-100 hover:scale-95 transition-all"
               style={{
                 backgroundImage: `url(${categoryItem.image})`,
               }}
               to={categoryItem.path}
             >
-              <span className="text-white opacity-80 text-3xl font-bold shadow-md">
+              <span className="text-white opacity-80 text-3xl font-bold">
                 {categoryItem.name}
               </span>
             </Link>
