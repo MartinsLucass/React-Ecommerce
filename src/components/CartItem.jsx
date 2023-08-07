@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useProductContext } from "../common/ProductContext";
 
 const CartItem = ({ item, onRemove }) => {
+  const { subTotal, setSubTotal } = useProductContext();
   const [quantity, setQuantity] = useState(1);
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
+  useEffect(() => {
+    if (quantity === 1) {
+      setSubTotal(subTotal + (item.price ? item.price * quantity : item.original.price * quantity));
     }
-  };
+  }, [quantity]);
+
+ const handleDecrement = () => {
+  if (quantity > 1) {
+    setQuantity((prevQuantity) => prevQuantity - 1);
+    setSubTotal(subTotal - (item.price ? item.price : item.original.price));
+  }
+};
 
   const handleRemove = () => {
+    const removedItemTotal = (item.price ? item.price * quantity : item.original.price * quantity)
+    setSubTotal(subTotal - removedItemTotal);
     onRemove(item);
   };
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
+    setSubTotal(subTotal + (item.price ? item.price : item.original.price));
   };
 
   return (
@@ -55,11 +67,12 @@ const CartItem = ({ item, onRemove }) => {
         </div>
 
         <div className="flex  justify-between mt-2">
-          <span className="text-black font-semibold">
-             ${item.price * quantity}
-          </span>
+        <span className="text-black font-semibold">
+  ${(item.price ? item.price * quantity : item.original.price * quantity).toFixed(2)}
+</span>
+
           <span className="text-gray-500 text-sm">
-            ${item.price} por unidade
+          ${item.price ? item.price.toFixed(2) : item.original.price.toFixed(2)} por unidade
           </span>
         </div>
       </div>
