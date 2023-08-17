@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Menu from "./Menu";
 import SearchBar from "./SearchBar";
-import Links from "./Links";
 import Cart from "../../components/Cart";
 import { Link } from "react-router-dom";
 
@@ -19,14 +17,11 @@ const Header = () => {
           <>
             <div className="flex flex-row justify-between items-center w-full">
               <div className="flex flex-row justify-center items-center md:space-x-0 space-x-4">
-                <Menu />
+                
                 <Link to={"/"}>
                   <h1 className="text-3xl font-bold text-zinc-950">LOJINHA</h1>
                 </Link>
               </div>
-              <>
-                <Links />
-              </>
               <div className="flex flex-row space-x-4">
                 <SearchBar
                   setShowSearch={setShowSearch}

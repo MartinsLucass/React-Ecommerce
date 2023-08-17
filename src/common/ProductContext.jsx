@@ -50,7 +50,7 @@ const ProductContextProvider = ({ children }) => {
     ).slice(0, 20);
     setNewProducts(newProducts);
 
-  console.log(products)
+  console.log(products);
   
   };
 

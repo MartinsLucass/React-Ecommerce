@@ -30,12 +30,12 @@ const CartItem = ({ item, onRemove }) => {
   };
 
   return (
-    <div className="flex items-center space-y-4 p-4 ">
+    <div className="flex items-center space-y-4 p-4 py-6 h-96">
       <div className="flex-shrink-0 w-14 mr-4">
         <img
           src={item.thumbnail}
           alt={item.title}
-          className="w-full h-full object-contain"
+          className="w-full overflow-hidden h-full object-contain"
         />
       </div>
 

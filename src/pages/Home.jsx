@@ -23,13 +23,13 @@ const Home = () => {
       <div className="h-full w-11/12 flex justify-center">
         <Category />
       </div>
-      <div className="w-11/12 flex justify-center">
+      <div className="w-11/12 flex justify-center h-full">
         <CarouselProducts products={promotionProducts} title={"Daily Deal"} />
       </div>
       <div className="h-full w-11/12 flex justify-center">
         <Brand />
       </div>
-      <div className=" w-11/12 flex justify-center">
+      <div className=" w-11/12 flex justify-center h-full">
         <CarouselProducts products={newProducts} title={"New Products"}/>
       </div>
     </main>

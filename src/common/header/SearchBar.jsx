@@ -1,29 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineSearch, AiOutlineArrowLeft } from "react-icons/ai";
 import { useProductContext } from "../ProductContext";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ showSearch, setShowSearch }) => {
-  const { setSearchTerm, allProducts } = useProductContext();
-  const [windowWidth, setWindowWidth] = useState(0); // Definir um valor inicial para o tamanho da janela
+  const { setSearchTerm } = useProductContext();
+  const [windowWidth, setWindowWidth] = useState(0);
   const [inputTerm, setInputTerm] = useState("");
+  const navigate = useNavigate();
+  const searchBarRef = useRef(null);
 
   const handleButtonClick = () => {
-    if (windowWidth < 640 && !showSearch) {
-      setShowSearch(!showSearch);
+    if (windowWidth < 640 && showSearch === false) {
+      setShowSearch(true);
     }
+  };
+
+  const closeSearchBar = () => {
+    setShowSearch(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (searchBarRef.current && !searchBarRef.current.contains(e.target)) {
+      closeSearchBar();
+    }
+  };
+
+  useEffect(() => {
+    const updateWindowWidth = () => {
+      setWindowWidth(window.innerWidth);
+      closeSearchBar();
+    };
+
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", updateWindowWidth);
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", updateWindowWidth);
+        document.removeEventListener("mousedown", handleOutsideClick);
+      }
+    };
+  }, []);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    setSearchTerm(inputTerm);
+    navigate("/Search");
+    closeSearchBar();
   };
 
   const handleInputChange = (e) => {
     setInputTerm(e.target.value);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (inputTerm.trim() !== "") {
-      setSearchTerm(inputTerm);
-    }
   };
 
   const inputClasses = classNames({
@@ -33,40 +66,23 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
   });
 
   const buttonClasses = classNames(
-    "flex items-center justify-center sm:bg-transparent sm:rounded-l-lg rounded-full border-zinc-300 h-10 w-10",
+    "flex items-center justify-center sm:bg-transparent sm:rounded-l-lg rounded-full border-zinc-300 h-10 w-10 sm:text-gray-500",
     {
-      "bg-zinc-200 w-10 h-10": !showSearch,
-      "bg-transparent w-16": showSearch,
+      "bg-zinc-200 w-10 h-10 text-black": !showSearch,
+      "bg-transparent w-16 text-gray-500": showSearch,
     }
   );
 
-  useEffect(() => {
-    // Função para atualizar o tamanho da janela apenas no lado do cliente
-    const updateWindowWidth = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    // Adicionar o ouvinte do evento resize somente no lado do cliente
-    if (typeof window !== "undefined") {
-      setWindowWidth(window.innerWidth);
-      window.addEventListener("resize", updateWindowWidth);
-    }
-
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", updateWindowWidth);
-      }
-    };
-  }, []);
-
   return (
-    <form onSubmit={handleFormSubmit} className="flex items-center justify-center sm:rounded-lg rounded-full w-full">
+    <div className="flex items-center justify-center sm:rounded-lg rounded-full w-full">
       {showSearch && (
         <button onClick={() => setShowSearch(false)} className="mr-6">
           <AiOutlineArrowLeft size={20} className="text-black" />
         </button>
       )}
-      <div
+      <form
+        ref={searchBarRef}
+        onSubmit={handleFormSubmit}
         className={classNames(
           "flex flex-row items-center justify-between bg-white",
           {
@@ -77,20 +93,15 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
       >
         <input
           className={inputClasses}
+          placeholder="Search..."
           type="text"
           onChange={handleInputChange}
         />
-        {inputTerm !== "" ? (
-          <Link to={"/Search"} className={buttonClasses} onClick={handleButtonClick}>
-            <AiOutlineSearch size={20} className="text-black" />
-          </Link>
-        ) : (
-          <button className={buttonClasses} onClick={handleButtonClick}>
-            <AiOutlineSearch size={20} className="text-black" />
-          </button>
-        )}
-      </div>
-    </form>
+        <button className={buttonClasses} onClick={handleButtonClick}>
+          <AiOutlineSearch size={20} />
+        </button>
+      </form>
+    </div>
   );
 };
 

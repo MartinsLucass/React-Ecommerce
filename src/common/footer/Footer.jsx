@@ -7,7 +7,7 @@ import { BiMap } from "react-icons/bi";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-zinc-800 py-8 md:py-12 shadow-xl">
+    <footer className="w-full bg-zinc-800 py-8 mt-20 md:py-12 shadow-xl">
       <div className="container grid grid-cols-2 md:grid-cols-5 gap-8 text-zinc-200 mx-auto">
         <div className="space-y-4 p-4 md:col-span-2"> {/* Fix grid-2 to md:col-span-2 */}
           <h4 className="text-2xl font-bold ">LOJINHA</h4>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useProductContext } from "../common/ProductContext";
 import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import CartItem from "./CartItem";
 
 const Cart = () => {
@@ -64,22 +65,22 @@ const Cart = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative flex justify-center items-center">
       <button
-        className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700"
+        className="flex items-center justify-center rounded-full border-zinc-300 h-10 w-10 bg-zinc-200"
         onClick={toggleCart}
         aria-expanded={isCartOpen}
         aria-controls="cartDropdown"
       >
-        Carrinho ({cart.length})
+        < AiOutlineShoppingCart size={20}/>
       </button>
 
       <div
-        className={`fixed top-0 bottom-0 right-0 md:w-96 sm:w-72 w-full h-full overflow-auto text-center opacity-95 bg-white border-l-2 border-zinc-400 z-50 transition-all duration-300 transform ${
+        className={`fixed top-0 bottom-0 right-0 md:w-96 sm:w-72 w-full h-full overflow-auto text-center bg-white border-l-2 border-zinc-400 z-50 transition-all duration-300 transform ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="h-20 w-full flex justify-between items-center border-b-2 px-4">
+        <div className="h-16 w-full flex justify-between items-center  px-4">
           <h3 className="font-bold text-xl">SHOPPING CART</h3>
           <button
             className="items-center text-black right-4 flex space-x-2"

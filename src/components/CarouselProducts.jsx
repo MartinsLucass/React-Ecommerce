@@ -41,7 +41,7 @@ const CarouselProducts = ({products, title}) => {
 
   return (
     <div className="w-full h-full">
-      <h3 className="text-2xl font-semibold mb-4 pr-4">{title}</h3> 
+      <h3 className="text-2xl font-semibold pr-4">{title}</h3> 
       <Slider {...settings} className="w-full ">
         {products.map((product) => (
           <div key={product.id}>
