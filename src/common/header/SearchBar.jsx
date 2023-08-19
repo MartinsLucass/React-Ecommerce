@@ -10,6 +10,7 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
   const [inputTerm, setInputTerm] = useState("");
   const navigate = useNavigate();
   const searchBarRef = useRef(null);
+  const [isShaking, setIsShaking] = useState(false);
 
   const handleButtonClick = () => {
     if (windowWidth < 640 && showSearch === false) {
@@ -50,10 +51,16 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    setSearchTerm(inputTerm);
-    navigate("/Search");
-    closeSearchBar();
+    if (inputTerm.trim() === "") {
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 820);
+    } else {
+      setSearchTerm(inputTerm);
+      navigate("/Search");
+      closeSearchBar();
+    }
   };
+
 
   const handleInputChange = (e) => {
     setInputTerm(e.target.value);
@@ -80,17 +87,18 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
           <AiOutlineArrowLeft size={20} className="text-black" />
         </button>
       )}
-      <form
-        ref={searchBarRef}
-        onSubmit={handleFormSubmit}
-        className={classNames(
-          "flex flex-row items-center justify-between bg-white",
-          {
-            "border sm:border-lg rounded-full sm:rounded-lg": !showSearch,
-            "border rounded-lg w-full": showSearch,
-          }
-        )}
-      >
+         <form
+      ref={searchBarRef}
+      onSubmit={handleFormSubmit}
+      className={classNames(
+        "flex flex-row items-center justify-between bg-white",
+        {
+          "border sm:border-lg rounded-full sm:rounded-lg": !showSearch,
+          "border rounded-lg w-full": showSearch,
+          "animate-shake": isShaking,
+        }
+      )}
+    >
         <input
           className={inputClasses}
           placeholder="Search..."

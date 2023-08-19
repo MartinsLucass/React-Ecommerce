@@ -3,10 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CardProduct from "./CardProduct";
+import { FaShoppingBag } from "react-icons/fa";
 
 const CarouselProducts = ({products, title}) => {
 
   const settings = {
+    arrows: false,
     dots: false,
     infinite: true,
     autoplay: true,
@@ -41,7 +43,10 @@ const CarouselProducts = ({products, title}) => {
 
   return (
     <div className="w-full h-full">
-      <h3 className="text-2xl font-semibold pr-4">{title}</h3> 
+      <h3 className="flex space-x-12 text-2xl font-semibold pl-4 pb-2 text-zinc-700">
+        {title}
+        <FaShoppingBag className="ml-2" />
+      </h3>
       <Slider {...settings} className="w-full ">
         {products.map((product) => (
           <div key={product.id}>

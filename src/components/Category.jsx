@@ -83,7 +83,7 @@ const Category = () => {
               }}
               to={categoryItem.path}
             >
-              <span className="text-white opacity-80 text-3xl font-bold">
+              <span className="text-zinc-200 opacity-90 text-3xl font-bold">
                 {categoryItem.name}
               </span>
             </Link>

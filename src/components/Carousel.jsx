@@ -2,23 +2,23 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import image1 from "../common/assets/images/tab.png";
-import image2 from "../common/assets/images/watch.png";
+import image2 from "../common/assets/images/tab.png";
+import image1 from "../common/assets/images/watch.png";
 import image3 from "../common/assets/images/cell.png";
 
 const Carousel = () => {
   const images = [
     {
-      src: image3,
+      src: image1,
       alt: "Imagem 1",
+    },
+    {
+      src: image3,
+      alt: "Imagem 3",
     },
     {
       src: image2,
       alt: "Imagem 2",
-    },
-    {
-      src: image1,
-      alt: "Imagem 3",
     },
   ];
 

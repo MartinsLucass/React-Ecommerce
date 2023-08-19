@@ -32,7 +32,7 @@ const Cart = () => {
 
     return (
       <div className="h-3/4">
-        <ul className="h-full overflow-y-auto">
+        <ul className="h-full overflow-y-auto ">
           {cart.map((item) => (
             <CartItem key={item.id} item={item} onRemove={removeFromCart} />
           ))}
