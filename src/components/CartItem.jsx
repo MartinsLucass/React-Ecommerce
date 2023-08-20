@@ -7,30 +7,44 @@ const CartItem = ({ item, onRemove }) => {
 
   useEffect(() => {
     if (quantity === 1) {
-      setSubTotal(subTotal + (item.price ? item.price * quantity : item.original.price * quantity));
+      setSubTotal(
+        subTotal +
+          (item.price
+            ? item.price * quantity
+            : item.original.price * quantity)
+      );
     }
   }, [quantity]);
 
- const handleDecrement = () => {
-  if (quantity > 1) {
-    setQuantity((prevQuantity) => prevQuantity - 1);
-    setSubTotal(subTotal - (item.price ? item.price : item.original.price));
-  }
-};
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+      setSubTotal(
+        subTotal - (item.price ? item.price : item.original.price)
+      );
+    }
+  };
 
   const handleRemove = () => {
-    const removedItemTotal = (item.price ? item.price * quantity : item.original.price * quantity)
+    const removedItemTotal = item.price
+      ? item.price * quantity
+      : item.original.price * quantity;
     setSubTotal(subTotal - removedItemTotal);
     onRemove(item);
   };
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
-    setSubTotal(subTotal + (item.price ? item.price : item.original.price));
+    setSubTotal(
+      subTotal + (item.price ? item.price : item.original.price)
+    );
   };
 
+  const formatPrice = (price) =>
+  price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
   return (
-    <div className="flex items-center space-y-4 p-4 py-6 h-96">
+    <div className="flex items-center space-y-4 p-4 py-6 ">
       <div className="flex-shrink-0 w-14 mr-4">
         <img
           src={item.thumbnail}
@@ -66,15 +80,17 @@ const CartItem = ({ item, onRemove }) => {
           </button>
         </div>
 
-        <div className="flex  justify-between mt-2">
+        <div className="flex justify-between mt-2">
         <span className="text-black font-semibold">
-  ${(item.price ? item.price * quantity : item.original.price * quantity).toFixed(2)}
-</span>
+          {formatPrice(
+            item.price ? item.price * quantity : item.original.price * quantity
+          )}
+        </span>
 
-          <span className="text-gray-500 text-sm">
-          ${item.price ? item.price.toFixed(2) : item.original.price.toFixed(2)} por unidade
-          </span>
-        </div>
+        <span className="text-gray-500 text-sm">
+          {formatPrice(item.price ? item.price : item.original.price)} por unidade
+        </span>
+      </div>
       </div>
     </div>
   );

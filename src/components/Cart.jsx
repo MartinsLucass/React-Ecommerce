@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useProductContext } from "../common/ProductContext";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -7,6 +7,19 @@ import CartItem from "./CartItem";
 const Cart = () => {
   const { cart, setCart, subTotal, setSubTotal } = useProductContext();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setIsCartOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -76,6 +89,7 @@ const Cart = () => {
       </button>
 
       <div
+        ref={cartRef}
         className={`fixed top-0 bottom-0 right-0 md:w-96 sm:w-72 w-full h-full overflow-auto text-center bg-white border-l-2 border-zinc-400 z-50 transition-all duration-300 transform ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
