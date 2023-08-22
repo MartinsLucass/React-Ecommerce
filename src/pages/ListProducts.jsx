@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useProductContext } from "../common/ProductContext";
-import CardProduct from "./CardProduct";
+import CardProduct from "../components/CardProduct";
 
 const ListProducts = ({ categories }) => {
   const { searchProducts, allProducts, searchTerm } = useProductContext();
