@@ -9,6 +9,10 @@ const Cart = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartRef = useRef(null);
 
+  const formatPrice = (price) =>
+  price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (cartRef.current && !cartRef.current.contains(event.target)) {
@@ -54,7 +58,7 @@ const Cart = () => {
           <div className="flex justify-between">
             <p className="text-black text-lg font-semibold">Subtotal:</p>{" "}
             <span className="text-black text-lg font-semibold">
-              ${subTotal.toFixed(2)}
+              {formatPrice(subTotal)}
             </span>
           </div>
 

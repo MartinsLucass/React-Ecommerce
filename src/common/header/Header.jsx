@@ -8,7 +8,7 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <header className="flex flex-row items-center justify-center border-b-2 bg-zinc-100 border-zinc-200 p-4">
+    <header className="fixed top-0 left-0 right-0 flex flex-row z-10 items-center justify-center border-b-2 bg-zinc-100 border-zinc-200 p-4">
       <div className="container w-full flex justify-center items-center">
         {showSearch ? (
           <SearchBar setShowSearch={setShowSearch} showSearch={showSearch} />
@@ -34,5 +34,6 @@ const Header = () => {
     </header>
   );
 };
+
 
 export default Header;
