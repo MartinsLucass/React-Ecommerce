@@ -3,7 +3,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import Home from "./Home";
 import Footer from "../common/footer/Footer";
 import Header from "../common/header/Header";
-import ListProducts from "../components/ListProducts";
+import ListProducts from "./ListProducts";
 
 const Layout = () => {
   return (
