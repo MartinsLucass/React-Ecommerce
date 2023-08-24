@@ -10,8 +10,7 @@ const Cart = () => {
   const cartRef = useRef(null);
 
   const formatPrice = (price) =>
-  price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
+    price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,6 +34,9 @@ const Cart = () => {
 
   const clearCart = () => {
     setCart([]);
+    cart.forEach((item) => {
+      localStorage.removeItem(`quantity-${item.id}`);
+    });
     setSubTotal(0);
   };
 
@@ -69,10 +71,7 @@ const Cart = () => {
             >
               CLEAR CART
             </button>
-            <button
-              className="block w-3/5 bg-zinc-600 text-white text-lg px-4 py-2 rounded-md hover:bg-zinc-800"
-              onClick={clearCart}
-            >
+            <button className="block w-3/5 bg-zinc-600 text-white text-lg px-4 py-2 rounded-md hover:bg-zinc-800">
               CHECKOUT
             </button>
           </div>
@@ -89,7 +88,7 @@ const Cart = () => {
         aria-expanded={isCartOpen}
         aria-controls="cartDropdown"
       >
-        < AiOutlineShoppingCart size={20}/>
+        <AiOutlineShoppingCart size={20} />
       </button>
 
       <div

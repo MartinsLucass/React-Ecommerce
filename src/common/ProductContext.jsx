@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
 
 const ProductContext = createContext();
 
@@ -16,10 +16,16 @@ const ProductContextProvider = ({ children }) => {
   const [promotionProducts, setPromotionProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [cart, setCart] = useState([]);
-  const [subTotal, setSubTotal] = useState(0);
+  const [cart, setCart] = useState(() => {
+    const localCart = localStorage.getItem("cart");
+    return localCart ? JSON.parse(localCart) : [];
+  });
+  const [subTotal, setSubTotal] = useState(() => {
+    const localSubTotal = localStorage.getItem("subTotal");
+    return localSubTotal ? JSON.parse(localSubTotal) : 0;
+  });
 
-  const searchProducts = async ({ category, searchTerm}) => {
+  const searchProducts = async ({ category, searchTerm }) => {
     let products = [];
 
     try {
@@ -40,22 +46,36 @@ const ProductContextProvider = ({ children }) => {
     }
 
     setAllProducts(products);
-    const promotionProducts = products.filter(
-      (product) => product.original_price > product.price
-    ).slice(0, 20);
+    const promotionProducts = products
+      .filter((product) => product.original_price > product.price)
+      .slice(0, 20);
     setPromotionProducts(promotionProducts);
 
-    const newProducts = products.filter(
-      (product) => product.condition === "new"
-    ).slice(0, 20);
+    const newProducts = products
+      .filter((product) => product.condition === "new")
+      .slice(0, 20);
     setNewProducts(newProducts);
-
-  console.log(products);
-  
   };
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("subTotal", JSON.stringify(subTotal));
+  }, [cart, subTotal]);
 
   return (
-    <ProductContext.Provider value={{ allProducts, searchProducts, promotionProducts, newProducts, searchTerm, cart, setCart, setSearchTerm, subTotal, setSubTotal}}>
+    <ProductContext.Provider
+      value={{
+        allProducts,
+        searchProducts,
+        promotionProducts,
+        newProducts,
+        searchTerm,
+        cart,
+        setCart,
+        setSearchTerm,
+        subTotal,
+        setSubTotal,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );
@@ -64,10 +84,11 @@ const ProductContextProvider = ({ children }) => {
 const useProductContext = () => {
   const context = useContext(ProductContext);
   if (!context) {
-    throw new Error('useProductContext deve ser usado dentro de um ProductContextProvider');
+    throw new Error(
+      "useProductContext deve ser usado dentro de um ProductContextProvider"
+    );
   }
   return context;
 };
 
 export { ProductContextProvider, useProductContext };
-

@@ -74,8 +74,8 @@ const Brand = () => {
     ],
   };
 
-  const handleLinkClick = (name) => {
-    // Define o valor do searchTerm usando o name
+  const handleLinkClick = (name) => {  
+    window.scrollTo(0, 0);   
     setSearchTerm(name);
   };
 
@@ -85,6 +85,7 @@ const Brand = () => {
         {categories.map((category) => (
           <div key={category.path} className="px-2 bg-transparent">
             <Link
+            
               to={category.path}
               className="flex flex-col items-center justify-center border-2 bg-gradient-to-b from-zinc-100 to-zinc-50 border-gray-300 rounded-md h-64 w-full cursor-pointer duration-200 bg-cover bg-center hover:opacity-100 hover:scale-95 transition-all"
               onClick={() => handleLinkClick(category.name)}

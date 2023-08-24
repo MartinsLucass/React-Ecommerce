@@ -14,7 +14,7 @@ const Home = () => {
     searchProducts({ category: categories, searchTerm: "" });
   }, []);
   return (
-    <main className="flex flex-col items-center justify-start space-y-24 overflow-hidden mt-12">
+    <main className="flex flex-col items-center justify-start space-y-24 overflow-hidden mt-20">
       <div className="sm:container flex flex-col sm:flex-row justify-center items-start w-full sm:space-x-6 bg-gradient-to-b- ">
         <div className="w-screen h-full">
           <Carousel />

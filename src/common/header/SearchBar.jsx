@@ -58,6 +58,7 @@ const SearchBar = ({ showSearch, setShowSearch }) => {
       setSearchTerm(inputTerm);
       navigate("/Search");
       closeSearchBar();
+      window.scrollTo(0, 0);
     }
   };
 

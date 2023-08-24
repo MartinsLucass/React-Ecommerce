@@ -11,7 +11,7 @@ const ListProducts = ({ categories }) => {
   }, [searchTerm, categories]);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 mt-8 min-h-screen overflow-hidden">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 mt-32 min-h-screen overflow-hidden">
       {allProducts.length === 0 ? (
         <div className="flex justify-center items-center h-72 w-screen ">
           <p className="text-center text-2xl text-gray-600">No products found.</p>

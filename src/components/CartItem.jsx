@@ -3,25 +3,23 @@ import { useProductContext } from "../common/ProductContext";
 
 const CartItem = ({ item, onRemove }) => {
   const { subTotal, setSubTotal } = useProductContext();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(() => {
+    const storedQuantity = localStorage.getItem(`quantity-${item.id}`);
+    return storedQuantity ? parseInt(storedQuantity) : 0;
+  });
 
   useEffect(() => {
-    if (quantity === 1) {
-      setSubTotal(
-        subTotal +
-          (item.price
-            ? item.price * quantity
-            : item.original.price * quantity)
-      );
+    localStorage.setItem(`quantity-${item.id}`, quantity);
+    if (quantity === 0) {
+      setQuantity(1);
+      setSubTotal(subTotal + (item.price ? item.price : item.original.price));
     }
   }, [quantity]);
 
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-      setSubTotal(
-        subTotal - (item.price ? item.price : item.original.price)
-      );
+      setSubTotal(subTotal - (item.price ? item.price : item.original.price));
     }
   };
 
@@ -30,18 +28,18 @@ const CartItem = ({ item, onRemove }) => {
       ? item.price * quantity
       : item.original.price * quantity;
     setSubTotal(subTotal - removedItemTotal);
+    localStorage.removeItem(`quantity-${item.id}`);
+    setQuantity(0);
     onRemove(item);
   };
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
-    setSubTotal(
-      subTotal + (item.price ? item.price : item.original.price)
-    );
+    setSubTotal(subTotal + (item.price ? item.price : item.original.price));
   };
 
   const formatPrice = (price) =>
-  price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   return (
     <div className="flex items-center space-y-4 p-4 py-6 ">
@@ -81,16 +79,19 @@ const CartItem = ({ item, onRemove }) => {
         </div>
 
         <div className="flex justify-between mt-2">
-        <span className="text-black font-semibold">
-          {formatPrice(
-            item.price ? item.price * quantity : item.original.price * quantity
-          )}
-        </span>
+          <span className="text-black font-semibold">
+            {formatPrice(
+              item.price
+                ? item.price * quantity
+                : item.original.price * quantity
+            )}
+          </span>
 
-        <span className="text-gray-500 text-sm">
-          {formatPrice(item.price ? item.price : item.original.price)} por unidade
-        </span>
-      </div>
+          <span className="text-gray-500 text-sm">
+            {formatPrice(item.price ? item.price : item.original.price)} por
+            unidade
+          </span>
+        </div>
       </div>
     </div>
   );

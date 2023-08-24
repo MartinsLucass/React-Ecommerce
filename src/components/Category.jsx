@@ -77,6 +77,9 @@ const Category = () => {
         {category.map((categoryItem) => (
           <div key={categoryItem.name} className="px-2 shadow-lg">
             <Link
+              onClick={()=>{
+                window.scrollTo(0, 0);
+              }}
               className="flex flex-col items-center justify-center h-64 w-full rounded-lg cursor-pointer shadow-lg bg-cover bg-center hover:opacity-100 hover:scale-95 transition-all"
               style={{
                 backgroundImage: `url(${categoryItem.image})`,
